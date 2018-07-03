@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}文件转换中心{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>你好,
+        {% if current_user.is_authenticated %}
+        {{ current_user.username }}
+        {% else %}游客{% endif %}!</h1>
+    <a href="{{ url_for('auth.transpdf') }}">PDF转换为WORD</a>.</p>
+    <a href="{{ url_for('auth.transpic') }}">图片转换为WORD</a>.</p>
+    <a href="{{ url_for('auth.translate') }}">翻译（中译英）</a>.</p>
+</div>
+{% endblock %}

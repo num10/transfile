@@ -1,0 +1,8 @@
+<p>Dear {{ user.username }},</p>
+<p>Welcome to <b>文件转换中心</b>!</p>
+<p>请认证您的账户 <a href="{{ url_for('auth.confirm', token=token, _external=True) }}">点击这里</a>.</p>
+<p>您也可以在浏览器中打开下列地址进行认证:</p>
+<p>{{ url_for('auth.confirm', token=token, _external=True) }}</p>
+<p>谢谢</p>
+<p>文件转换中心</p>
+<p><small>注意：请勿回复此邮件！</small></p>

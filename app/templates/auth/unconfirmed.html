@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}文件转换中心 - 请认证帐号！{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>
+        Hello, {{ current_user.username }}!
+    </h1>
+    <h3>您的帐号还未认证</h3>
+    <p>
+        在您访问本网站之前，您需要确认您的帐户。 检查您的收件箱，您应该收到一封带有确认链接的电子邮件.
+    </p>
+    <p>
+        再发一次认证?
+        <a href="{{ url_for('auth.resend_confirmation') }}">点击这里</a>
+    </p>
+</div>
+{% endblock %}
