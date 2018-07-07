@@ -4,6 +4,7 @@
 import urllib.request
 import hashlib
 import sys
+from config import basedir
 
 typ = sys.getfilesystemencoding()
 
@@ -29,7 +30,7 @@ def translatefile(path):
     with open(path,'r') as file:
         for char in file.read():
             if char=='\n':
-                with open('/home/shihao/project/transfile/app/downloads/'+filename+'.doc', 'a') as f:
+                with open(basedir+'/app/downloads/'+filename+'.doc', 'a') as f:
                     f.write(translate(strread)+'\n')
                 strread=''
             else:

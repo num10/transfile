@@ -6,6 +6,8 @@
 
 import sys
 import importlib
+from config import basedir
+
 importlib.reload(sys)
 
 from pdfminer.pdfparser import PDFParser,PDFDocument
@@ -41,7 +43,7 @@ def pdf2word(path):
             layout = device.get_result()
             for x in layout:
                 if (isinstance(x, LTTextBoxHorizontal)):
-                    with open('/home/shihao/project/transfile/app/downloads/'+filename+'.doc', 'a') as f:
+                    with open(basedir+'/app/downloads/'+filename+'.doc', 'a') as f:
                         results = x.get_text()
                         f.write(results + '\n')
     return wordfilename

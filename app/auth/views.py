@@ -1,6 +1,8 @@
 #!/usr/bin/ python
 # -*- coding: UTF-8 -*-
 
+import os
+from config import basedir
 from flask import render_template, redirect, request, url_for, flash,send_from_directory
 from flask_login import login_user, logout_user, login_required, current_user
 from . import auth
@@ -149,11 +151,12 @@ def transpdf():
     if not current_user.is_authenticated:
         return redirect(url_for('auth.login'))
     if form.pdf.data and form.validate_on_submit():
+        form.pdf.data.filename = 'changefilename.pdf'# 更改上传的文件名，因为flask-uploads会忽略中文名，导致报错
         filename = pdfs.save(form.pdf.data)
         if filename:
-            path='/home/shihao/project/flasky/app/uploads/'
+            path=basedir+'/app/uploads/'
             wordfilename=pdf2word(path+filename)
-            return send_from_directory('/home/shihao/project/flasky/app/downloads',
+            return send_from_directory(basedir+'/app/downloads',
                                        wordfilename, as_attachment=True)
     return render_template('auth/transpdf.html',form=form)
 
@@ -163,11 +166,13 @@ def transpic():
     if not current_user.is_authenticated:
         return redirect(url_for('auth.login'))
     if form.photo.data and form.validate_on_submit():
+        file_extension=os.path.splitext(form.photo.data.filename)
+        form.photo.data.filename = 'changefilename.'+str(file_extension)
         filename = photos.save(form.photo.data)
         if filename:
-            path='/home/shihao/project/flasky/app/uploads/'
+            path=basedir+'/app/uploads/'
             wordfilename=pic2word(path+filename)
-            return send_from_directory('/home/shihao/project/flasky/app/downloads',
+            return send_from_directory(basedir+'/app/downloads',
                                        wordfilename, as_attachment=True)
     return render_template('auth/transpic.html', form=form)
 
@@ -177,11 +182,12 @@ def translate():
     if not current_user.is_authenticated:
         return redirect(url_for('auth.login'))
     if form.word.data and form.validate_on_submit():
-        form.word.data.filename = 'changefilename.doc'#更改上传的文件名，因为flask-uploads会忽略中文名，导致报错
+        file_extension = os.path.splitext(form.word.data.filename)
+        form.word.data.filename = 'changefilename.' + str(file_extension)
         filename = words.save(form.word.data)
         if filename:
-            path='/home/shihao/project/flasky/app/uploads/'
+            path=basedir+'/app/uploads/'
             wordfilename=translatefile(path+filename)
-            return send_from_directory('/home/shihao/project/flasky/app/downloads',
+            return send_from_directory(basedir+'/app/downloads',
                                        wordfilename, as_attachment=True)
     return render_template('auth/translate.html',form=form)

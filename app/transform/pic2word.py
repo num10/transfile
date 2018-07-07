@@ -4,6 +4,7 @@
 from PIL import Image
 import pytesseract
 import hashlib
+from config import basedir
 
 
 def pic2word(path):
@@ -13,6 +14,6 @@ def pic2word(path):
     wordfilename = filename+'.doc'
 
     text=pytesseract.image_to_string(Image.open(path),lang='chi_sim')
-    with open('/home/shihao/project/transfile/app/downloads/'+filename+'.doc', 'a') as file:
+    with open(basedir+'/app/downloads/'+filename+'.doc', 'a') as file:
         file.write(text)
     return wordfilename

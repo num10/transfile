@@ -20,9 +20,10 @@ class Config:
     FLASKY_MAIL_SENDER = 'pdf2word <992346986@qq.com>'
     FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN')
 
-    UPLOADED_PDFS_DEST = '/home/shihao/project/transfile/app/uploads'
-    UPLOADED_PHOTOS_DEST = '/home/shihao/project/transfile/app/uploads'
-    UPLOADED_WORDS_DEST = '/home/shihao/project/transfile/app/uploads'
+    UPLOADED_PDFS_DEST = basedir+'/app/uploads'
+    UPLOADED_PHOTOS_DEST = basedir+'/app/uploads'
+    UPLOADED_WORDS_DEST = basedir+'/app/uploads'
+
 
 
     @staticmethod
