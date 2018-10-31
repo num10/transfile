@@ -19,18 +19,18 @@ from ..transform.translate import translatefile
 
 @auth.before_app_request
 def before_request():
-    if current_user.is_authenticated \
-            and not current_user.confirmed \
-            and request.endpoint \
-            and request.blueprint != 'auth' \
-            and request.endpoint != 'static':
-        return redirect(url_for('auth.unconfirmed'))
-
+    if current_user.is_authenticated:
+        current_user.ping()
+        if not current_user.confirmed \
+                and request.endpoint \
+                and request.blueprint != 'auth' \
+                and request.endpoint != 'static':
+            return redirect(url_for('auth.unconfirmed'))
 
 @auth.route('/unconfirmed')
 def unconfirmed():
     if current_user.is_anonymous or current_user.confirmed:
-        return redirect(url_for('auth.trans'))
+        return redirect(url_for('main.index'))
     return render_template('auth/unconfirmed.html')
 
 
@@ -146,10 +146,9 @@ def trans():
     return render_template('auth/dealfile.html')
 
 @auth.route('/transpdf', methods=['GET', 'POST'])
+@login_required
 def transpdf():
     form=PdfForm()
-    if not current_user.is_authenticated:
-        return redirect(url_for('auth.login'))
     if form.pdf.data and form.validate_on_submit():
         form.pdf.data.filename = 'changefilename.pdf'# 更改上传的文件名，因为flask-uploads会忽略中文名，导致报错
         filename = pdfs.save(form.pdf.data)
@@ -161,10 +160,9 @@ def transpdf():
     return render_template('auth/transpdf.html',form=form)
 
 @auth.route('/transpic',methods=['GET', 'POST'])
+@login_required
 def transpic():
     form=PhotoForm()
-    if not current_user.is_authenticated:
-        return redirect(url_for('auth.login'))
     if form.photo.data and form.validate_on_submit():
         file_extension=os.path.splitext(form.photo.data.filename)
         form.photo.data.filename = 'changefilename.'+str(file_extension)
@@ -177,10 +175,9 @@ def transpic():
     return render_template('auth/transpic.html', form=form)
 
 @auth.route('/translate',methods=['GET', 'POST'])
+@login_required
 def translate():
     form=TranslateForm()
-    if not current_user.is_authenticated:
-        return redirect(url_for('auth.login'))
     if form.word.data and form.validate_on_submit():
         file_extension = os.path.splitext(form.word.data.filename)
         form.word.data.filename = 'changefilename.' + str(file_extension)
