@@ -12,12 +12,12 @@ class Config:
     MAIL_SERVER = 'smtp.qq.com'
     MAIL_PORT = 587
     MAIL_USE_TLS = True
-    MAIL_USERNAME = os.environ.get('MAIL_USERNAME') or '992346986@qq.com'
-    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') or 'gnrtxvfrgzffbfdc'
+    MAIL_USERNAME = os.environ.get('MAIL_USERNAME') or 'your@example.com'
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') or '****************'
 
     FLASKY_MAIL_SUBJECT_PREFIX = '[文件转换中心]'
-    FLASKY_MAIL_SENDER = 'pdf2word <992346986@qq.com>'
-    FLASKY_ADMIN = '992346986@qq.com' or os.environ.get('FLASKY_ADMIN')
+    FLASKY_MAIL_SENDER = 'pdf2word <your@example.comyour@example.com>'
+    FLASKY_ADMIN = 'your@example.com' or os.environ.get('FLASKY_ADMIN')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_RECORD_QUERIES = True
     FLASKY_POSTS_PER_PAGE = 20
